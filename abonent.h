@@ -1,11 +1,13 @@
 #include "minilist.h"
 #include "datetime.h"
 #include <iostream>
-
+//(done)float -> целый
+//(done)iterator end
+//сорт при выводе
 struct TCall {
 	long long number;
 	DateTime date;
-	float duration;
+	unsigned int duration;
 
 	TCall & operator = (const TCall & c)
 	{
@@ -16,87 +18,82 @@ struct TCall {
 };
 
 class Abonent {
-	float _traffic;
-	float _balans;
+	unsigned int _traffic;
+	int _balance;
 	minilist<TCall> _history;
 
 	public: 
-		Abonent(float);	//traffic
+		Abonent(unsigned int);	//traffic
 		Abonent(const Abonent &);
 //		~Abonent();
 
 		Abonent & operator = (const Abonent &);
 
-		void balans_plus(float);
-		float balans();
+		void balance_plus(unsigned int);
+		int balance();
 
-		void call(long long, DateTime, float);	//number, date, duration
+		void call(long long, DateTime, unsigned int);	//number, date, duration
 
 		void history();
 		void history(DateTime);
 		void history(long long);
 };
 
-Abonent::Abonent(float traffic) : _traffic(traffic), _balans(0) {} //abs не пашет
+Abonent::Abonent(unsigned int traffic) : _traffic(traffic), _balance(0) {}
 
-Abonent::Abonent(const Abonent & a) : _traffic(a._traffic), _balans(a._balans), _history(a._history) {}
+Abonent::Abonent(const Abonent & a) : _traffic(a._traffic), _balance(a._balance), _history(a._history) {}
 
 Abonent & Abonent::operator = (const Abonent & a)
 {
 	_traffic = a._traffic;
-	_balans = a._balans;
+	_balance = a._balance;
 	_history = a._history;
 	return *this;
 }
 
-void Abonent::balans_plus(float money)
+void Abonent::balance_plus(unsigned int money)
 {
-	_balans += money;	//abs не пашет
+	_balance += money;
 }
 
-float Abonent::balans()
+int Abonent::balance()
 {
-	return _balans;
+	return _balance;
 }
 
-void Abonent::call(long long _number, DateTime _date, float _duration)
+void Abonent::call(long long _number, DateTime _date, unsigned int _duration)
 {
-	_balans -= _duration * (_traffic / 60);
+	_balance -= _duration * _traffic;
 	TCall temp;
 	temp.number = _number;
 	temp.date = _date;
 	temp.duration = _duration;
-std::cout << "p1" << std::endl;
 	_history.push_back(temp);
-std::cout << _history.size() << std::endl;
-std::cout << "p2" << std::endl;
 }
 
 void Abonent::history()
 {
-	_iterator<TCall> iter = _history.begin();
-	for (int i = 0; i < _history.size(); i++) {
+	std::cout << "History:" << std::endl;
+	for (_iterator<TCall> iter = _history.begin();; iter++) {
 		std::cout << iter->number << ' ' << iter->date << ' ' << iter->duration << std::endl;
-		iter++;
+		if (iter == _history.end()) break; 
 	}
 }
 
 void Abonent::history(DateTime dt)
 {
-	_iterator<TCall> iter = _history.begin();
 	std::cout << "Calls from " << dt << ':' << std::endl;
-	for (int i = 0; i < _history.size(); i++) {
+	for (_iterator<TCall> iter = _history.begin();; iter++) {
 		if (iter->date == dt) std::cout << iter->number << ' ' << iter->duration << std::endl;
-		iter++;
+		if (iter == _history.end()) break; 
 	}
 }
 
 void Abonent::history(long long numb)
 {
-	_iterator<TCall> iter = _history.begin();
 	std::cout << "Calls to " << numb << ':' << std::endl;
-	for (int i = 0; i < _history.size(); i++) {
+	for (_iterator<TCall> iter = _history.begin();; iter++) {
 		if (iter->number == numb) std::cout << iter->date << ' ' << iter->duration << std::endl;
-		iter++;
+		if (iter == _history.end()) break; 
 	}
 }

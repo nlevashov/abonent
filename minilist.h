@@ -72,6 +72,8 @@ class minilist {
 				}
 				_end -> _next = NULL;
 			}
+
+			return *this;
 		}
 
 		void push_back(T & obj)
@@ -95,6 +97,11 @@ class minilist {
 			return (_iterator<T>(_begin));
 		}
 
+		_iterator<T> end()
+		{
+			return (_iterator<T>(_end));
+		}
+
 		friend struct _iterator<T>;
 };
 
@@ -106,7 +113,7 @@ struct _iterator
 	typedef cell<T>				_Node;
 
 	typedef std::ptrdiff_t			difference_type;
-	typedef std::forward_iterator_tag	_iterator_category; //это вообще учитывается?
+	typedef std::forward_iterator_tag	_iterator_category;
 	typedef T				value_type;
 	typedef T*				pointer;
 	typedef T&				reference;

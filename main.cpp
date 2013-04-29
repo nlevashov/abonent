@@ -6,29 +6,29 @@ int main()
 {
 //	while (1) {
 		Abonent a(1);
-		cout << a.balans() << endl;
-		a.balans_plus(10);
-		cout << a.balans() << endl;
-		a.balans_plus(20);
-		cout << a.balans() << endl;
+		cout << a.balance() << endl;
+		a.balance_plus(10);
+		cout << a.balance() << endl;
+		a.balance_plus(20);
+		cout << a.balance() << endl;
 
 		a.call(89060739874, DateTime::get_current(), 10);
-		cout << "call" << a.balans() << endl;
+		cout << "call" << a.balance() << endl;
 
 		Abonent b = a;
-		cout << b.balans() << endl;
+		cout << b.balance() << endl;
 
 		b.call(89999999999, DateTime::get_current(), 5);
 
-		cout << a.balans() << endl;
-		cout << b.balans() << endl;
+		cout << a.balance() << endl;
+		cout << b.balance() << endl;
 
 		Abonent c(1);
 		c = a;
 
 		a.call(23423423, DateTime::get_current(), 32);
-		cout << a.balans() << endl;
-		cout << c.balans() << endl;
+		cout << a.balance() << endl;
+		cout << c.balance() << endl;
 
 		a.call(12312312323, DateTime::get_current(), 12);
 		a.call(89060739874, DateTime(2001, 2, 14), 15);
