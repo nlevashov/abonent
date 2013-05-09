@@ -1,9 +1,12 @@
+//(done)float -> целый
+//(done)iterator end
+//(done)сорт при выводе
+
 #include "minilist.h"
 #include "datetime.h"
 #include <iostream>
-//(done)float -> целый
-//(done)iterator end
-//сорт при выводе
+#include <set>
+
 struct TCall {
 	long long number;
 	DateTime date;
@@ -14,6 +17,11 @@ struct TCall {
 		number = c.number;
 		date = c.date;
 		duration = c.duration;
+	}
+
+	bool operator < (const TCall & c) const
+	{
+		return (date < c.date || (date == c.date && (number < c.number || (number == c.number && duration < c.duration))));
 	}
 };
 
@@ -73,27 +81,39 @@ void Abonent::call(long long _number, DateTime _date, unsigned int _duration)
 
 void Abonent::history()
 {
-	std::cout << "History:" << std::endl;
+	std::multiset<TCall> hist;
 	for (_iterator<TCall> iter = _history.begin();; iter++) {
+		hist.insert(*iter);
+		if (iter == _history.end()) break;
+	}
+	std::cout << "History:" << std::endl;
+	for (std::multiset<TCall>::iterator iter = hist.begin(); iter != hist.end(); iter++) {
 		std::cout << iter->number << ' ' << iter->date << ' ' << iter->duration << std::endl;
-		if (iter == _history.end()) break; 
 	}
 }
 
 void Abonent::history(DateTime dt)
 {
-	std::cout << "Calls from " << dt << ':' << std::endl;
+	std::multiset<TCall> hist;
 	for (_iterator<TCall> iter = _history.begin();; iter++) {
-		if (iter->date == dt) std::cout << iter->number << ' ' << iter->duration << std::endl;
-		if (iter == _history.end()) break; 
+		if (iter->date == dt) hist.insert(*iter);
+		if (iter == _history.end()) break;
+	}
+	std::cout << "Calls from " << dt << ':' << std::endl;
+	for (std::multiset<TCall>::iterator iter = hist.begin(); iter != hist.end(); iter++) {
+		std::cout << iter->number << ' ' << iter->duration << std::endl;
 	}
 }
 
 void Abonent::history(long long numb)
 {
-	std::cout << "Calls to " << numb << ':' << std::endl;
+	std::multiset<TCall> hist;
 	for (_iterator<TCall> iter = _history.begin();; iter++) {
-		if (iter->number == numb) std::cout << iter->date << ' ' << iter->duration << std::endl;
-		if (iter == _history.end()) break; 
+		if (iter->number == numb) hist.insert(*iter);
+		if (iter == _history.end()) break;
+	}
+	std::cout << "Calls to " << numb << ':' << std::endl;
+	for (std::multiset<TCall>::iterator iter = hist.begin(); iter != hist.end(); iter++) {
+		std::cout << iter->date << ' ' << iter->duration << std::endl;
 	}
 }

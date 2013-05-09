@@ -32,11 +32,11 @@ class DateTime {
 		int get_week();				//Определение дня недели (1..7 = mon..sun)
 		static const DateTime get_current();	//Статический метод, возвращающий объект с текущим временем.
 
-		const bool operator == (const DateTime &);
-		const bool operator <  (const DateTime &);
-		const bool operator <= (const DateTime &);
-		const bool operator >  (const DateTime &);
-		const bool operator >= (const DateTime &);
+		const bool operator == (const DateTime &) const;
+		const bool operator <  (const DateTime &) const;
+		const bool operator <= (const DateTime &) const;
+		const bool operator >  (const DateTime &) const;
+		const bool operator >= (const DateTime &) const;
 
 		std::string get_time(std::string);	//Представление времени в виде строки. Формат представления времени в виде строки задается отдельным параметром
 
@@ -360,27 +360,27 @@ const DateTime DateTime::get_current()	//Статический метод, во
 
 //-----comparison----------------------------------------------------------------------
 
-const bool DateTime::operator == (const DateTime & c)
+const bool DateTime::operator == (const DateTime & c) const
 {
 	return (_ut == c._ut);
 }
 
-const bool DateTime::operator < (const DateTime & c)
+const bool DateTime::operator < (const DateTime & c) const
 {
 	return (_ut < c._ut);
 }
 
-const bool DateTime::operator <= (const DateTime & c)
+const bool DateTime::operator <= (const DateTime & c) const
 {
 	return (_ut <= c._ut);
 }
 
-const bool DateTime::operator > (const DateTime & c)
+const bool DateTime::operator > (const DateTime & c) const
 {
 	return (_ut > c._ut);
 }
 
-const bool DateTime::operator >= (const DateTime & c)
+const bool DateTime::operator >= (const DateTime & c) const
 {
 	return (_ut >= c._ut);
 }

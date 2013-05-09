@@ -97,7 +97,7 @@ class minilist {
 			return (_iterator<T>(_begin));
 		}
 
-		_iterator<T> end()
+		_iterator<T> end() //!!! end() показывает на последний элемент
 		{
 			return (_iterator<T>(_end));
 		}
